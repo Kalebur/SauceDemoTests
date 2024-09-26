@@ -64,13 +64,16 @@ namespace SauceDemoTests
 
                 if (expirationTime <= DateTime.Now - TimeSpan.FromMinutes(60))
                 {
-                    expirationTime.AddDays(2);
+                    expirationTime = DateTime.Now.AddDays(2);
                     File.Delete(_cookieFilePath);
-                    cookie = new Cookie("session-username", cookieValues["session-username"], cookieValues["domain"], cookieValues["path"], expirationTime.AddDays(2));
+                    cookie = new Cookie("session-username", cookieValues["session-username"], cookieValues["domain"], cookieValues["path"], expirationTime);
                     File.WriteAllText(_cookieFilePath, cookie.ToString());
                 }
+                else
+                {
+                    cookie = new Cookie("session-username", cookieValues["session-username"], cookieValues["domain"], cookieValues["path"], expirationTime);
+                }
 
-                cookie = new Cookie("session-username", cookieValues["session-username"], cookieValues["domain"], cookieValues["path"], expirationTime.AddDays(2));
                 NavigateTo(_loginPage.Url);
                 _driver.Manage().Cookies.AddCookie(cookie);
                 NavigateTo(_inventoryPage.Url);
