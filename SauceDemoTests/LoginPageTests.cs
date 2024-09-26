@@ -28,6 +28,14 @@ namespace SauceDemoTests
             Assert.AreEqual(_inventoryPage.Url, _driver.Url);
         }
 
+        [TestMethod]
+        public void InventoryPageTest()
+        {
+            _seleniumHelpers.GotoInventoryPage();
+
+            Assert.AreEqual(_inventoryPage.Url, _driver.Url);
+        }
+
         [TestCleanup]
         public void Cleanup()
         {
